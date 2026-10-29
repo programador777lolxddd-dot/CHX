@@ -1,0 +1,46 @@
+name: Publish CHX to PyPI
+
+# Se activa al publicar un Release (o al empujar un tag v*)
+on:
+  release:
+    types: [published]
+  # Opcional: permite lanzarlo manualmente desde la pestaña Actions
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    name: Build & Publish to PyPI
+    runs-on: ubuntu-latest
+
+    # Entorno de GitHub (recomendado para Trusted Publishing)
+    environment:
+      name: pypi
+      url: https://pypi.org/p/chx
+
+    # Permisos obligatorios para OIDC / Trusted Publishing
+    permissions:
+      id-token: write   # Necesario para que PyPI verifique la identidad
+      contents: read    # Para hacer checkout del código
+
+    steps:
+      # 1. Obtener el código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configurar Python (la versión que uses para construir)
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # 3. Instalar la herramienta de construcción
+      - name: Install build
+        run: python -m pip install --upgrade build
+
+      # 4. Construir los artefactos (sdist + wheel)
+      - name: Build package
+        run: python -m build
+
+      # 5. Publicar en PyPI usando Trusted Publishing (sin tokens)
+      - name: Publish package to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
