@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chx"
+version = "0.1.0"
+description = "Utilidades místicas y prácticas para Python (Chrotrixurum)"
+readme = "README.md"                     # crea un README.md o elimina esta línea
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }        # coincide con el LICENSE del repo
+authors = [
+    { name = "programador777lolxddd-dot", email = "tu-email@ejemplo.com" },
+]
+keywords = ["utils", "helpers", "chrotrixurum", "chx"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+]
+
+# Sin dependencias externas: solo stdlib
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=7.0"]
+dev = ["pytest>=7.0", "build", "twine"]
+
+# Opcional: comando de consola para ejecutar la demo de prueba.py
+[project.scripts]
+chx-demo = "prueba:main"   # requiere añadir una función main() en prueba.py
+
+[tool.setuptools]
+# Empaqueta el módulo chrotrixurum.py como módulo único
+py-modules = ["chrotrixurum"]
+
+# Si el código estuviera en una carpeta, usa:
+# packages = ["chrotrixurum"]
+
+[tool.setuptools.package-data]
+# Si incluyes archivos de datos (plantillas, JSON, etc.)
+# chrotrixurum = ["*.json", "*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
