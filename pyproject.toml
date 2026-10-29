@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "chx"
-version = "0.1"
+version = "0.1.2"
 description = "Utilidades místicas y prácticas para Python (Chrotrixurum)"
 readme = "README.md"                     # crea un README.md o elimina esta línea
 requires-python = ">=3.9"
